@@ -115,6 +115,11 @@ variable "storage_policy_id" {
 }
 
 ###########################################
+variable "hostname" {
+  description = "Hostname for the VM."
+  default     = "terraformvm"
+}
+
 variable "vmname" {
   description = "The name of the virtual machine used to deploy the vms. This name can scale out based on number of instances and vmnameformat - example can be found under exampel folder"
   default     = "terraformvm"

@@ -116,8 +116,8 @@ variable "storage_policy_id" {
 
 ###########################################
 variable "hostname" {
-  description = "Hostname for the VM."
-  default     = "terraformvm"
+  description = "Hostname for the VM. If not provided, the VM name (or staticvmname) will be used."
+  default     = ""
 }
 
 variable "vmname" {

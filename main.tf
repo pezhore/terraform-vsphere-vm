@@ -1,8 +1,8 @@
 locals {
   # Set some local variables to capture static name, or hostname
-  staticname = "${var.staticvmname != null ? var.staticvmname :""}"
+  staticvmname = "${var.staticvmname != null ? var.staticvmname :""}"
   hostname = "${var.hostname != null ? var.hostname :""}"
-  osname = "${coalesce(local.hostname,local.staticname)}"
+  osname = "${coalesce(local.hostname,local.staticvmname)}"
 }
 data "vsphere_datacenter" "dc" {
   name = var.dc

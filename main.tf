@@ -1,3 +1,9 @@
+locals {
+  # Set some local variables to capture static name, or hostname
+  staticname = "${var.staticvmname != null ? var.staticvmname :""}"
+  hostname = "${var.hostname != null ? var.hostname :""}"
+  osname = coalesce(hostname,staticname)
+}
 data "vsphere_datacenter" "dc" {
   name = var.dc
 }
@@ -217,7 +223,8 @@ resource "vsphere_virtual_machine" "vm" {
       dynamic "linux_options" {
         for_each = var.is_windows_image ? [] : [1]
         content {
-          host_name    = var.hostname != null ? var.hostname : (var.staticvmname != null ?  var.staticvmname : format("${var.vmname}${var.vmnameformat}", count.index + 1))
+          # Set our host name to the osname determined in locals block, or format the vm name with name format
+          host_name    = local.osname != null ? local.osname : format("${var.vmname}${var.vmnameformat}", count.index + 1)
           domain       = var.domain
           hw_clock_utc = var.hw_clock_utc
         }
@@ -226,7 +233,8 @@ resource "vsphere_virtual_machine" "vm" {
       dynamic "windows_options" {
         for_each = var.is_windows_image ? [1] : []
         content {
-          computer_name         = var.hostname != null ? var.hostname : (var.staticvmname != null ?  var.staticvmname : format("${var.vmname}${var.vmnameformat}", count.index + 1))
+          # Set our computer name to the osname determined in locals block, or format the vm name with name format
+          computer_name         = local.osname != null ? local.osname : format("${var.vmname}${var.vmnameformat}", count.index + 1)
           admin_password        = var.local_adminpass
           workgroup             = var.workgroup
           join_domain           = var.windomain

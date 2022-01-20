@@ -1,6 +1,6 @@
 # Sanity Test for new Functionality
 
-**Copy of a TF Plan shoud be submmited with each PR, new functionality/variable should be explicitly added here under static values section in the main.tf file.**
+**Copy of a TF Plan should be submitted with each PR, new functionality/variable should be explicitly added here under static values section in the main.tf file.**
 
 ### tfvars Example:
 
